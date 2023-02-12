@@ -12,9 +12,17 @@
 ### Setup database
 - Run server
 - `docker exec -it server_app bash`
-- `php artisan migrate`
+- `php artisan migrate:fresh --seed`
 
 ### Stop server 
 - `docker-compose down`
 
-Server is running on port 8876
+----
+
+### Server base uri: http://localhost:8876/api/
+### Routes
+- users 
+- cities
+- statuses
+- citizenships
+- disabilities
