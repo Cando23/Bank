@@ -21,16 +21,17 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('gender', 1);
             $table->string('passport_series', 2);
-            $table->string('passport_number',7);
+            $table->string('passport_number',7)->unique();
             $table->string('passport_id_number',14)->unique();
             $table->string('passport_issued_by');
             $table->date('passport_issue_date');
             $table->string('place_of_birth');
-            $table->unsignedBigInteger('residence_city_id');
+            $table->string('residence_address');
             $table->string('home_phone', 15)->nullable();
             $table->string('personal_phone', 15)->nullable();
             $table->string('email')->nullable();
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('residence_city_id');
+            $table->unsignedBigInteger('registration_city_id');
             $table->unsignedBigInteger('marital_status_id');
             $table->unsignedBigInteger('citizenship_id');
             $table->unsignedBigInteger('disability_id');
@@ -38,13 +39,13 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index('residence_city_id', 'user_residence_city_idx');
-            $table->index('city_id', 'user_city_idx');
+            $table->index('registration_city_id', 'user_registration_city_idx');
             $table->index('marital_status_id', 'user_marital_status_idx');
             $table->index('citizenship_id', 'user_citizenship_idx');
             $table->index('disability_id', 'user_disability_idx');
 
             $table->foreign('residence_city_id', 'user_residence_city_fk')->on('cities')->references('id');
-            $table->foreign('city_id', 'user_city_fk')->on('cities')->references('id');
+            $table->foreign('registration_city_id', 'user_city_fk')->on('cities')->references('id');
             $table->foreign('marital_status_id', 'user_marital_status_fk')->on('marital_statuses')->references('id');
             $table->foreign('citizenship_id', 'user_citizenship_fk')->on('citizenships')->references('id');
             $table->foreign('disability_id', 'user_disability_fk')->on('disabilities')->references('id');
