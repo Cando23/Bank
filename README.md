@@ -1,6 +1,9 @@
 # Bank
 
-Server is running on port 8876
+### Modify .env.example => .env
+- `DB_HOST=db`
+- `DB_DATABASE=bank`
+- `DB_PASSWORD=root`
 
 ### Run server
 - `cd server`
@@ -13,3 +16,5 @@ Server is running on port 8876
 
 ### Stop server 
 - `docker-compose down`
+
+Server is running on port 8876
