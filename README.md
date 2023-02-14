@@ -15,7 +15,7 @@
 - `php artisan migrate:fresh --seed`
 
 ### Stop server 
-- `docker-compose down`
+- `docker-compose stop`
 
 ----
 
