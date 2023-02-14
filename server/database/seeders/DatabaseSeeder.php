@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([CitizenshipSeeder::class,
             DisabilitySeeder::class,
-            MaritalStatusSeeder::class]);
+            MaritalStatusSeeder::class,
+            AccountPlanSeeder::class,
+            AccountSeeder::class]);
         City::factory(10)->create();
         User::factory(10)->create();
     }
