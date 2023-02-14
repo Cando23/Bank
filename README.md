@@ -21,8 +21,4 @@
 
 ### Server base uri: http://localhost:8876/api/
 ### Routes
-- users 
-- cities
-- statuses
-- citizenships
-- disabilities
+- Run `php artisan route:list` in server_app container
