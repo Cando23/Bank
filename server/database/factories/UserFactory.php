@@ -39,6 +39,7 @@ class UserFactory extends Factory
             'personal_phone' => fake()->numerify('+375' . Arr::random(['44', '29', '25', '33']) . "#######"),
             'home_phone' => fake()->numerify('8029#######'),
             'residence_address' => fake()->streetAddress(),
+            'pensioner' => fake()->boolean(),
             'residence_city_id' => City::query()->inRandomOrder()->first()->id,
             'registration_city_id' => City::query()->inRandomOrder()->first()->id,
             'marital_status_id' => MaritalStatus::query()->inRandomOrder()->first()->id,

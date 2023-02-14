@@ -38,12 +38,13 @@ class StoreUserRequest extends FormRequest
             'personal_phone' => ['regex:/\+375(33|25|44|29)\d{7}/'],
             'home_phone' => ['regex:/8029\d{7}/'],
             'residence_address' => 'required|min:2|max:255',
-            'email' =>'unique:users|email:rfc,dns',
+            'email' =>'unique:users|email',
             'residence_city_id' => 'required|exists:cities,id|numeric',
             'registration_city_id' => 'required|exists:cities,id|numeric',
             'marital_status_id' => 'required|exists:marital_statuses,id|numeric',
             'citizenship_id' => 'required|exists:citizenships,id|numeric',
             'disability_id' => 'required|exists:disabilities,id|numeric',
+            'pensioner' => 'required|boolean',
             'income' => 'decimal:0,2'
         ];
     }
