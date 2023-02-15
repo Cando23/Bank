@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('patronymic');
-            $table->date('date_of_birth');
+            $table->string('date_of_birth');
             $table->string('gender', 1);
             $table->string('passport_series', 2);
             $table->string('passport_number',7)->unique();
             $table->string('passport_id_number',14)->unique();
             $table->string('passport_issued_by');
-            $table->date('passport_issue_date');
+            $table->string('passport_issue_date');
             $table->string('place_of_birth');
             $table->string('residence_address');
             $table->string('home_phone', 15)->nullable();
