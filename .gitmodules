@@ -1,0 +1,3 @@
+[submodule "ng-client"]
+	path = ng-client
+	url = https://github.com/travka123/bank-client.git
