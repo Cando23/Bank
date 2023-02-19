@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\CitizenshipController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DepositPlanController;
 use App\Http\Controllers\DisabilityController;
 use App\Http\Controllers\MaritalStatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,3 +27,9 @@ Route::get("citizenships", [CitizenshipController::class, "index"]);
 Route::get("citizenships/{citizenship}", [CitizenshipController::class, "show"]);
 Route::get("disabilities", [DisabilityController::class, "index"]);
 Route::get("disabilities/{disability}", [DisabilityController::class, "show"]);
+
+Route::prefix("deposits")->group(function () {
+    Route::get("/plans", [DepositPlanController::class, "index"]);
+    Route::get("/plans/{plan}", [DepositPlanController::class, "show"]);
+    Route::post("/plans", [DepositPlanController::class, "store"]);
+});
