@@ -17,7 +17,7 @@ class DepositPlanSeeder extends Seeder
     {
         DB::table('deposit_plans')->insert([
             [
-                "name" => "Альфа сливки",
+                "name" => "Alpha slivki",
                 "percent" => 18,
                 "period_in_days" => 547,
                 "revocable" => 0,
@@ -25,7 +25,7 @@ class DepositPlanSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                "name" => "Альфа-вклад (отзывной)",
+                "name" => "Alpha-revocable",
                 "percent" => 9,
                 "period_in_days" => 367,
                 "revocable" => 1,
@@ -33,7 +33,7 @@ class DepositPlanSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                "name" => "Альфа-сейф",
+                "name" => "Alpha-storage",
                 "percent" => 6,
                 "period_in_days" => 182,
                 "revocable" => 1,
@@ -41,7 +41,7 @@ class DepositPlanSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                "name" => "Альфа-Гранд",
+                "name" => "Alpha-grand",
                 "percent" => 12.5,
                 "period_in_days" => 243,
                 "revocable" => 0,
