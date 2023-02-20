@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             DisabilitySeeder::class,
             MaritalStatusSeeder::class,
             AccountPlanSeeder::class,
-            AccountSeeder::class]);
+            AccountSeeder::class,
+            DepositPlanSeeder::class]);
         City::factory(10)->create();
         User::factory(10)->create();
     }

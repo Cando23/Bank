@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -16,8 +15,8 @@ return new class extends Migration
         Schema::create('deposit_plans', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->unsignedInteger("percent");
-            $table->unsignedInteger("period_days");
+            $table->decimal("percent", 5);
+            $table->unsignedInteger("period_in_days");
             $table->boolean("revocable");
             $table->timestamps();
         });

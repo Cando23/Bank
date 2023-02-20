@@ -17,14 +17,14 @@ class AccountSeeder extends Seeder
         DB::table('accounts')->insert(
             [
                 [
-                    "number" => "1010000000001",
+                    "number" => "1010000000000",
                     "debit" => 0,
                     "credit" => 0,
                     "balance" => 0,
                     "plan_id" => 3
                 ],
                 [
-                    "number" => "7327000000001",
+                    "number" => "7327000000000",
                     "debit" => 100000,
                     "credit" => 0,
                     "balance" => 0,
