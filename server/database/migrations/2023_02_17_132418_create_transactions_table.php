@@ -23,8 +23,8 @@ return new class extends Migration
             $table->index("credit_account_id", "transaction_credit_account_idx");
             $table->index("debit_account_id", "transaction_debit_account_idx");
 
-            $table->foreign("credit_account_id", "transaction_credit_account_fk")->on("transactions")->references("id");
-            $table->foreign("debit_account_id", "transaction_debit_account_fk")->on("transactions")->references("id");
+            $table->foreign("credit_account_id", "transaction_credit_account_fk")->on("accounts")->references("id");
+            $table->foreign("debit_account_id", "transaction_debit_account_fk")->on("accounts")->references("id");
         });
     }
 
