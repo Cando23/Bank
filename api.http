@@ -112,7 +112,23 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "amount" : 1000,
+  "amount" : 102,
   "user_id" : 1,
   "plan_id" : 1
 }
+
+###
+GET http://localhost:8000/api/deposits/
+Accept: application/json
+
+###
+GET http://localhost:8000/api/deposits/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/accounts/
+Accept: application/json
+
+###
+GET http://localhost:8000/api/accounts/1
+Accept: application/json
