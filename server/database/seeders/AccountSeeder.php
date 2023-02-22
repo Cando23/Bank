@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -21,14 +22,18 @@ class AccountSeeder extends Seeder
                     "debit" => 0,
                     "credit" => 0,
                     "balance" => 0,
-                    "plan_id" => 3
+                    "plan_id" => 3,
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
                 ],
                 [
                     "number" => "7327000000000",
-                    "debit" => 100000,
-                    "credit" => 0,
+                    "debit" => 0,
+                    "credit" => 100000,
                     "balance" => 0,
-                    "plan_id" => 4
+                    "plan_id" => 4,
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now()
                 ]
             ]
         );

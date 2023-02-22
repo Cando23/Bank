@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CitizenshipController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\DepositPlanController;
 use App\Http\Controllers\DisabilityController;
 use App\Http\Controllers\MaritalStatusController;
@@ -32,4 +34,11 @@ Route::prefix("deposits")->group(function () {
     Route::get("/plans", [DepositPlanController::class, "index"]);
     Route::get("/plans/{plan}", [DepositPlanController::class, "show"]);
     Route::post("/plans", [DepositPlanController::class, "store"]);
+    Route::post("/", [DepositController::class, "store"]);
+    Route::get("/", [DepositController::class, "index"]);
+    Route::get("/{deposit}", [DepositController::class, "show"]);
 });
+
+
+Route::get("accounts", [AccountController::class, "index"]);
+Route::get("accounts/{account}", [AccountController::class, "show"]);
