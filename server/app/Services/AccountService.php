@@ -44,4 +44,11 @@ class AccountService
         $plan = AccountPlan::query()->where("number", "7327")->firstOrFail();
         return Account::query()->where("plan_id", $plan->id)->firstOrFail();
     }
+
+    public function getPercentAccount($deposit) {
+        return Account::query()->findOrFail($deposit->percent_account_id);
+    }
+    public function getMainAccount($deposit) {
+        return Account::query()->findOrFail($deposit->main_account_id);
+    }
 }

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string("number", 13);
-            $table->decimal("debit", 12);
-            $table->decimal("credit", 12);
-            $table->decimal("balance", 12);
+            $table->decimal("debit", 12, 4);
+            $table->decimal("credit", 12, 4);
+            $table->decimal("balance", 12, 4);
             $table->unsignedBigInteger("plan_id");
 
             $table->index("plan_id", "account_plan_idx");

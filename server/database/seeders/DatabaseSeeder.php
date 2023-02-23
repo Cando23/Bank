@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Citizenship;
 use App\Models\City;
-use App\Models\Disability;
-use App\Models\MaritalStatus;
+use App\Models\SysInfo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -25,6 +22,7 @@ class DatabaseSeeder extends Seeder
             AccountPlanSeeder::class,
             AccountSeeder::class,
             DepositPlanSeeder::class]);
+        SysInfo::factory(1)->create();
         City::factory(10)->create();
         User::factory(10)->create();
     }

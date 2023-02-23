@@ -18,16 +18,16 @@ class DepositPlanSeeder extends Seeder
         DB::table('deposit_plans')->insert([
             [
                 "name" => "Alpha slivki",
-                "percent" => 18,
-                "period_in_days" => 547,
+                "percent" => 5,
+                "period_in_days" => 365,
                 "revocable" => 0,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 "name" => "Alpha-revocable",
-                "percent" => 9,
-                "period_in_days" => 367,
+                "percent" => 18,
+                "period_in_days" => 365,
                 "revocable" => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

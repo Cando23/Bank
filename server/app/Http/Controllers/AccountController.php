@@ -20,10 +20,10 @@ class AccountController extends Controller
             ->get()
             ->toArray();
 
-        $passiveAccounts = $this->getAccountsByPlanId($accounts, 1);
-        $activeAccounts = $this->getAccountsByPlanId($accounts, 2);
-        $cashDeskAccount = $this->getAccountById($accounts, 3);
-        $developmentFundAccount = $this->getAccountById($accounts, 4);
+        $passiveAccounts = $this->getAccountsByPlanId($accounts, 1)->values();
+        $activeAccounts = $this->getAccountsByPlanId($accounts, 2)->values();
+        $cashDeskAccount = $this->getAccountByPlanId($accounts, 3);
+        $developmentFundAccount = $this->getAccountByPlanId($accounts, 4);
         return [
             'passive_accounts' => $passiveAccounts,
             'active_accounts' => $activeAccounts,
@@ -39,12 +39,12 @@ class AccountController extends Controller
             ->map(function ($account) {
                 $account['type'] = str_ends_with($account['number'], '0') ? 'main' : 'percent';
                 return $account;
-            })->toArray();
+            });
     }
 
-    private function getAccountById($accounts, $accountId)
+    private function getAccountByPlanId($accounts, $planId)
     {
-        $account = collect($accounts)->firstWhere('id', $accountId);
+        $account = collect($accounts)->firstWhere('plan_id', $planId);
         if (!$account) {
             return null;
         }

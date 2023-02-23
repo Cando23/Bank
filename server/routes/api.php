@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\CitizenshipController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\DepositController;
@@ -37,8 +38,13 @@ Route::prefix("deposits")->group(function () {
     Route::post("/", [DepositController::class, "store"]);
     Route::get("/", [DepositController::class, "index"]);
     Route::get("/{deposit}", [DepositController::class, "show"]);
+    Route::post("/close", [DepositController::class, "close"]);
 });
 
-
+Route::prefix("bank")->group(function () {
+   Route::post("/day", [BankController::class, "closeDay"]);
+   Route::post("/month", [BankController::class, "closeMonth"]);
+   Route::post("/year", [BankController::class, "closeYear"]);
+});
 Route::get("accounts", [AccountController::class, "index"]);
 Route::get("accounts/{account}", [AccountController::class, "show"]);
