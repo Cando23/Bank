@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UnprocessableException;
 use App\Http\Requests\StoreDepositRequest;
 use App\Models\Deposit;
 use App\Services\DepositService;
@@ -12,9 +13,11 @@ class DepositController extends Controller
 {
     protected $depositService;
 
-    public function __construct(DepositService $depositService) {
+    public function __construct(DepositService $depositService)
+    {
         $this->depositService = $depositService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +34,7 @@ class DepositController extends Controller
      * @param StoreDepositRequest $request
      * @return Deposit
      */
-    public function store(StoreDepositRequest $request) : Deposit
+    public function store(StoreDepositRequest $request): Deposit
     {
         $data = $request->validated();
         return $this->depositService->createDeposit($data);
@@ -43,31 +46,17 @@ class DepositController extends Controller
      * @param int $id
      * @return Deposit
      */
-    public function show(int $id) : Deposit
+    public function show(int $id): Deposit
     {
         return Deposit::query()->findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function close(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        try {
+            return $this->depositService->closeDeposit($request->query('id'));
+        } catch (UnprocessableException $e) {
+            return $e;
+        }
     }
 }
