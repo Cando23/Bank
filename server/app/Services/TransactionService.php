@@ -7,9 +7,15 @@ use App\Models\Transaction;
 
 class TransactionService
 {
-    public function commitCashDeskTransaction($account, $money)
+    public function updateCashDeskDebit($account, $money)
     {
         $account->debit += $money;
+        $account->balance = $account->debit - $account->credit;
+        $account->save();
+    }
+    public function updateCashDeskCredit($account, $money)
+    {
+        $account->credit += $money;
         $account->balance = $account->debit - $account->credit;
         $account->save();
     }
@@ -21,11 +27,11 @@ class TransactionService
         $creditPlan = AccountPlan::query()->findOrFail($creditAccount->plan_id);
         $debitPlan->type === "A" ? $this->updateAccountCredit($debitAccount, $money, $calculateBalance) : $this->updateAccountDebit($debitAccount, $money, $calculateNegativeBalance);
         $creditPlan->type === "A" ? $this->updateAccountDebit($creditAccount, $money, $calculateBalance) : $this->updateAccountCredit($creditAccount, $money, $calculateNegativeBalance);
-//        Transaction::query()->create([
-//            "debit_account_id" => $debitAccount->id,
-//            "credit_account_id" => $creditAccount->id,
-//            "amount" => $money
-//        ]);
+        Transaction::query()->create([
+            "debit_account_id" => $debitAccount->id,
+            "credit_account_id" => $creditAccount->id,
+            "amount" => $money
+        ]);
     }
 
     private function updateAccountCredit($account, $money, $balance)
