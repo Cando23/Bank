@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date("start_date");
             $table->date("end_date");
-            $table->decimal("amount", 12);
+            $table->decimal("amount", 12, 4);
             $table->unsignedBigInteger("plan_id");
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("percent_account_id");
