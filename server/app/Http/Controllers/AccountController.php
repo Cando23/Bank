@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AccountResource;
 use App\Models\Account;
+use App\Services\AccountService;
 
 class AccountController extends Controller
 {
+    protected $accountService;
+    public function __construct(AccountService$accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,35 +26,16 @@ class AccountController extends Controller
             ->get()
             ->toArray();
 
-        $passiveAccounts = $this->getAccountsByPlanId($accounts, 1)->values();
-        $activeAccounts = $this->getAccountsByPlanId($accounts, 2)->values();
-        $cashDeskAccount = $this->getAccountByPlanId($accounts, 3);
-        $developmentFundAccount = $this->getAccountByPlanId($accounts, 4);
+        $passiveAccounts = $this->accountService->getAccountsByPlanId($accounts, 1)->values();
+        $activeAccounts = $this->accountService->getAccountsByPlanId($accounts, 2)->values();
+        $cashDeskAccount = $this->accountService->getAccountByPlanId($accounts, 3);
+        $developmentFundAccount = $this->accountService->getAccountByPlanId($accounts, 4);
         return [
             'passive_accounts' => $passiveAccounts,
             'active_accounts' => $activeAccounts,
             'cash_desk_account' => $cashDeskAccount,
             'development_fund_account' => $developmentFundAccount
         ];
-    }
-
-    private function getAccountsByPlanId($accounts, $planId)
-    {
-        return collect($accounts)
-            ->filter(fn($account) => $account['plan_id'] === $planId)
-            ->map(function ($account) {
-                $account['type'] = str_ends_with($account['number'], '0') ? 'main' : 'percent';
-                return $account;
-            });
-    }
-
-    private function getAccountByPlanId($accounts, $planId)
-    {
-        $account = collect($accounts)->firstWhere('plan_id', $planId);
-        if (!$account) {
-            return null;
-        }
-        return $account;
     }
 
     /**

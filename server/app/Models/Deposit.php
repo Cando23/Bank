@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Deposit extends Model
 {
     use HasFactory;
+    protected $casts = [
+        'amount' => 'double'
+    ];
 
     protected $table = 'deposits';
     protected $guarded = false;
