@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('accounts', function (Blueprint $table) {
             $table->unsignedBigInteger("user_id")->nullable();
             $table->index("user_id", "account_user_idx");
-            $table->foreign("user_id", "account_user_fk")->on("accounts")->references("id");
+            $table->foreign("user_id", "account_user_fk")->on("users")->references("id");
         });
     }
 
