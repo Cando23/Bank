@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\UnprocessableException;
 use App\Http\Requests\StoreDepositRequest;
 use App\Models\Deposit;
 use App\Services\DepositService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class DepositController extends Controller
 {
@@ -55,8 +55,10 @@ class DepositController extends Controller
     {
         try {
             return $this->depositService->closeDeposit($request->query('id'));
-        } catch (UnprocessableException $e) {
-            return $e;
+        } catch (ValidationException $e) {
+            $error = $e->errors()["error"][0];
+            return response()->json(['error' => $error], 422);
+
         }
     }
 }
