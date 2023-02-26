@@ -53,8 +53,8 @@ class DepositService
         list($mainAccount, $percentAccount) = $this->accountService->createDepositAccounts($accountPlan, $data["user_id"]);
         $now = SysInfo::query()->first()->current_day;
         $deposit = Deposit::query()->create([
-            "start_date" => Carbon::parse($now)->toIso8601String(),
-            "end_date" => Carbon::parse($now)->addDays($depositPlan->period_in_days)->toIso8601String(),
+            "start_date" => Carbon::parse($now)->toDateString(),
+            "end_date" => Carbon::parse($now)->addDays($depositPlan->period_in_days)->toDateString(),
             "amount" => $data["amount"],
             "plan_id" => $depositPlan->id,
             "user_id" => $data["user_id"],
