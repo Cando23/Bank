@@ -78,8 +78,4 @@ class CreditController extends Controller
         return $annuity ? $this->creditService->getAnnuityPaymentPlan($plan_id, $period, $amount)
             : $this->creditService->getDifferentiatedPaymentPlan($plan_id, $period, $amount);
     }
-
-    public function card($id) {
-        return Card::query()->findOrFail($id);
-    }
 }

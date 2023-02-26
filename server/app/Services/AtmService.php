@@ -7,7 +7,6 @@ use Illuminate\Validation\ValidationException;
 
 class AtmService
 {
-
     public function createCard()
     {
         return Card::query()->create([
@@ -16,7 +15,8 @@ class AtmService
         ])->id;
     }
 
-    public function validateCard($data) {
+    public function validateCard($data)
+    {
         $card = Card::query()->where("number", $data["number"])->firstOrFail();
         if ($card->pin !== $data["pin"]) {
             throw ValidationException::withMessages([

@@ -19,7 +19,6 @@ class AtmController extends Controller
         $this->atmService = $atmService;
         $this->creditService = $creditService;
     }
-
     public function auth(CardRequest $request)
     {
         $data = $request->validated();

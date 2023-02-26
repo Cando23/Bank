@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AtmController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CitizenshipController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CreditController;
@@ -60,9 +61,11 @@ Route::prefix("credits")->group(function () {
     Route::post("/", [CreditController::class, "store"]);
     Route::get("/", [CreditController::class, "index"]);
     Route::get("/plan", [CreditController::class, "plan"]);
-    Route::get("/card/{card}", [CreditController::class, "card"]);
     Route::get("/{credit}", [CreditController::class, "show"]);
 });
+
+Route::get("cards/", [CardController::class, "index"]);
+Route::get("cards/{card}", [CardController::class, "show"]);
 
 Route::prefix("atm")->group(function () {
    Route::post("/", [AtmController::class, "auth"]);
