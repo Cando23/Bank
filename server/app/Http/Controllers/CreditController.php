@@ -2,83 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreditPlanRequest;
+use App\Http\Requests\StoreCreditRequest;
+use App\Models\Card;
+use App\Models\Credit;
+use App\Rules\CheckCreditPeriod;
+use App\Services\CreditService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CreditController extends Controller
 {
+    protected CreditService $creditService;
+
+    public function __construct(CreditService $creditService)
+    {
+        $this->creditService = $creditService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Collection
      */
-    public function index()
+    public function index() : Collection
     {
-        return view('credits.index');
+        return Credit::all();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCreditRequest $request
+     * @return Credit
      */
-    public function store(Request $request)
+    public function store(StoreCreditRequest $request) : Credit
     {
-        //
+        $data = $request->validated();
+        return $this->creditService->createCredit($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Credit
      */
-    public function show($id)
+    public function show(int $id): Credit
     {
-        //
+        return Credit::query()->findOrFail($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function plan(Request $request){
+        $validator = Validator::make($request->query(), [
+            "annuity" => "required|boolean",
+            "plan_id" => "required|exists:credit_plans,id|numeric",
+            "amount" => "required|numeric|between:101.00,9999999999.99"
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+        $plan_id = $request->query("plan_id");
+        $validator = Validator::make($request->query(), [
+            "period" => ["required", "numeric", "gt:0", new CheckCreditPeriod($plan_id)]
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $amount = $request->query("amount");
+        $period = $request->query("period");
+        $annuity = $request->query("annuity");
+        return $annuity ? $this->creditService->getAnnuityPaymentPlan($plan_id, $period, $amount)
+            : $this->creditService->getDifferentiatedPaymentPlan($plan_id, $period, $amount);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function card($id) {
+        return Card::query()->findOrFail($id);
     }
 }

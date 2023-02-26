@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\AccountService;
+use App\Services\AtmService;
 use App\Services\BankService;
+use App\Services\CreditService;
 use App\Services\DepositService;
 use App\Services\TransactionService;
 use Illuminate\Support\ServiceProvider;
@@ -26,9 +28,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DepositService::class, function ($app) {
             return new DepositService($app->make(TransactionService::class), $app->make(AccountService::class));
         });
-        $this->app->bind(BankService::class, function ($app) {
-            return new BankService($app->make(DepositService::class));
+        $this->app->bind(AtmService::class, function ($app) {
+            return new AtmService();
         });
+        $this->app->bind(CreditService::class, function ($app) {
+            return new CreditService($app->make(TransactionService::class), $app->make(AccountService::class),
+            $app->make(AtmService::class));
+        });
+        $this->app->bind(BankService::class, function ($app) {
+            return new BankService($app->make(DepositService::class), $app->make(CreditService::class));
+        });
+
 
     }
 

@@ -6,14 +6,17 @@ use App\Models\SysInfo;
 use Carbon\Carbon;
 class BankService
 {
-    protected $depositService;
-    public function __construct($depositService)
+    protected DepositService $depositService;
+    protected CreditService $creditService;
+    public function __construct($depositService, $creditService)
     {
         $this->depositService = $depositService;
+        $this->creditService = $creditService;
     }
 
     public function closeDay(){
        $this->depositService->closeDay();
+       $this->creditService->closeDay();
        $info = SysInfo::query()->first();
        $info->update(["current_day" =>  Carbon::parse($info->current_day)->addDay()]);
     }
@@ -23,6 +26,7 @@ class BankService
         while ($currentDay->lte($lastDayOfMonth)) {
             $info = SysInfo::query()->first();
             $this->depositService->closeDay();
+            $this->creditService->closeDay();
             $currentDay->addDay();
             $info->update(["current_day" =>  Carbon::parse($info->current_day)->addDay()]);
         }
@@ -34,6 +38,7 @@ class BankService
         while ($currentDay->lte($lastDayOfYear)) {
             $info = SysInfo::query()->first();
             $this->depositService->closeDay();
+            $this->creditService->closeDay();
             $currentDay->addDay();
             $info->update([
                 "current_day" =>  Carbon::parse($info->current_day)->addDay()

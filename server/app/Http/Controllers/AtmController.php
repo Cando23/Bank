@@ -2,83 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CardRequest;
+use App\Http\Requests\CashWithdrawalRequest;
+use App\Services\AtmService;
+use App\Services\CreditService;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 
 class AtmController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected $atmService;
+    protected $creditService;
+
+    public function __construct(AtmService $atmService, CreditService $creditService)
     {
-        return view("atm/index");
+        $this->atmService = $atmService;
+        $this->creditService = $creditService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function auth(CardRequest $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $data = $request->validated();
+        try {
+            return ["id" => $this->atmService->validateCard($data)];
+        } catch (ValidationException $e) {
+            $error = $e->errors()["error"][0];
+            return response()->json(['error' => $error], 403);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $account = $this->creditService->getAccountByCard($id);
+        return [
+            "number" => $account->number,
+            "balance" => $account->balance,
+            "date" => Carbon::now()->toDateString(),
+            "operation" => "Account balance"
+        ];
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function withdraw(CashWithdrawalRequest $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $data = $request->validated();
+        try {
+            $id = $this->atmService->validateCard($data);
+            $account = $this->creditService->getAccountByCard($id);
+            $this->creditService->withdrawCash($account, $data["amount"]);
+            return [
+                "number" => $account->number,
+                "amount" => $data["amount"],
+                "date" => Carbon::now()->toDateString(),
+                "operation" => "Cash withdrawal"
+            ];
+        } catch (ValidationException $e) {
+            $error = $e->errors()["error"][0];
+            return response()->json(['error' => $error], 422);
+        }
     }
 }

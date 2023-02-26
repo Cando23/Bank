@@ -7,6 +7,11 @@ use App\Models\AccountPlan;
 
 class AccountService
 {
+    public function getAccountById($id)
+    {
+        return Account::query()->findOrFail($id);
+    }
+
     public function getAccountsByPlanId($accounts, $planId)
     {
         return collect($accounts)
@@ -25,7 +30,8 @@ class AccountService
         }
         return $account;
     }
-    public function createDepositAccounts(AccountPlan $plan, $userId)
+
+    public function createAccounts(AccountPlan $plan, $userId)
     {
         $mainAccount = $this->createAccount($plan, false, $userId);
         $percentAccount = $this->createAccount($plan, true, $userId);
@@ -64,10 +70,13 @@ class AccountService
         return Account::query()->where("plan_id", $plan->id)->firstOrFail();
     }
 
-    public function getPercentAccount($deposit) {
-        return Account::query()->findOrFail($deposit->percent_account_id);
+    public function getPercentAccount($asset)
+    {
+        return Account::query()->findOrFail($asset->percent_account_id);
     }
-    public function getMainAccount($deposit) {
-        return Account::query()->findOrFail($deposit->main_account_id);
+
+    public function getMainAccount($asset)
+    {
+        return Account::query()->findOrFail($asset->main_account_id);
     }
 }

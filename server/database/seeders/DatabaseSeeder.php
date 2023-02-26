@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             MaritalStatusSeeder::class,
             AccountPlanSeeder::class,
             AccountSeeder::class,
-            DepositPlanSeeder::class]);
+            DepositPlanSeeder::class,
+            CreditPlanSeeder::class]);
         SysInfo::factory(1)->create();
         City::factory(10)->create();
         User::factory(10)->create();
