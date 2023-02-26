@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AtmController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CitizenshipController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CreditController;
+use App\Http\Controllers\CreditPlanController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\DepositPlanController;
 use App\Http\Controllers\DisabilityController;
@@ -46,5 +49,23 @@ Route::prefix("bank")->group(function () {
    Route::post("/month", [BankController::class, "closeMonth"]);
    Route::post("/year", [BankController::class, "closeYear"]);
 });
+
 Route::get("accounts", [AccountController::class, "index"]);
 Route::get("accounts/{account}", [AccountController::class, "show"]);
+
+Route::prefix("credits")->group(function () {
+    Route::get("/plans", [CreditPlanController::class, "index"]);
+    Route::get("/plans/{plan}", [CreditPlanController::class, "show"]);
+    Route::post("/plans", [CreditPlanController::class, "store"]);
+    Route::post("/", [CreditController::class, "store"]);
+    Route::get("/", [CreditController::class, "index"]);
+    Route::get("/plan", [CreditController::class, "plan"]);
+    Route::get("/card/{card}", [CreditController::class, "card"]);
+    Route::get("/{credit}", [CreditController::class, "show"]);
+});
+
+Route::prefix("atm")->group(function () {
+   Route::post("/", [AtmController::class, "auth"]);
+   Route::get("/{card}", [AtmController::class, "show"]);
+   Route::post("/withdraw", [AtmController::class, "withdraw"]);
+});

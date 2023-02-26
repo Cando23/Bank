@@ -4,6 +4,7 @@ Accept: application/json
 ###
 GET http://localhost:8000/api/cities/1
 Accept: application/json
+
 ###
 GET http://localhost:8000/api/statuses/1
 Accept: application/json
@@ -112,9 +113,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "amount" : 100,
-  "user_id" : 1,
-  "plan_id" : 2
+  "amount": 2223,
+  "user_id": 7,
+  "plan_id": 4
 }
 
 ###
@@ -148,3 +149,79 @@ Accept: application/json
 ###
 POST http://localhost:8000/api/bank/year
 Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/plans
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/plans/4
+Accept: application/json
+
+###
+POST http://localhost:8000/api/credits/plans
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Cool credit49",
+  "percent": 48,
+  "min_amount": 200,
+  "max_amount": 5000,
+  "min_period": 12,
+  "max_period": 49,
+  "annuity": 0
+}
+
+###
+POST http://localhost:8000/api/credits
+Accept: application/json
+Content-Type: application/json
+
+{
+  "amount": 2000,
+  "period": 48,
+  "plan_id": 5,
+  "user_id": 1
+}
+
+###
+GET http://localhost:8000/api/credits
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/plan?plan_id=4&amount=2000&period=48&annuity=1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/card/1
+Accept: application/json
+
+###
+POST http://localhost:8000/api/atm
+Accept: application/json
+Content-Type: application/json
+
+{
+  "number" : "3343469911503841",
+  "pin": "5391"
+}
+
+###
+GET http://localhost:8000/api/atm/1
+Accept: application/json
+
+###
+POST http://localhost:8000/api/atm/withdraw
+Accept: application/json
+Content-Type: application/json
+
+{
+  "number" : "3343469911503841",
+  "pin": "5392",
+  "amount": 1000
+}
