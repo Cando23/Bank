@@ -42,7 +42,7 @@ Route::prefix("deposits")->group(function () {
     Route::post("/", [DepositController::class, "store"]);
     Route::get("/", [DepositController::class, "index"]);
     Route::get("/{deposit}", [DepositController::class, "show"]);
-    Route::post("/close", [DepositController::class, "close"]);
+    Route::post("/{deposit}/close", [DepositController::class, "close"]);
 });
 
 Route::prefix("bank")->group(function () {
@@ -60,7 +60,7 @@ Route::prefix("credits")->group(function () {
     Route::post("/plans", [CreditPlanController::class, "store"]);
     Route::post("/", [CreditController::class, "store"]);
     Route::get("/", [CreditController::class, "index"]);
-    Route::get("/plan", [CreditController::class, "plan"]);
+    Route::get("/{credit}/payment", [CreditController::class, "payment"]);
     Route::get("/{credit}", [CreditController::class, "show"]);
 });
 

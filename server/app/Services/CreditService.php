@@ -61,9 +61,8 @@ class CreditService
         return $credit;
     }
 
-    public function getDifferentiatedPaymentPlan($plan_id, $period, $amount)
+    private function getDifferentiatedPaymentPlan($plan, $period, $amount)
     {
-        $plan = CreditPlan::query()->findOrFail($plan_id);
         $payments = [];
         $payed = $amount / $period;
         $percent = $plan->percent / 100;
@@ -81,10 +80,17 @@ class CreditService
         $year = 365;
         return $amount * $percent / $year * $days;
     }
-
-    public function getAnnuityPaymentPlan($plan_id, $period, $amount)
+    public function getPaymentPlan($id) {
+        $credit = Credit::query()->findOrFail($id);
+        $plan = CreditPlan::query()->findOrFail($credit->plan_id);
+        $amount = $credit->amount;
+        $period = $credit->period;
+        $annuity = $plan->annuity;
+        return $annuity ? $this->getAnnuityPaymentPlan($plan, $period, $amount)
+            : $this->getDifferentiatedPaymentPlan($plan, $period, $amount);
+    }
+    private function getAnnuityPaymentPlan($plan, $period, $amount)
     {
-        $plan = CreditPlan::query()->findOrFail($plan_id);
         $monthly_payment = $this->getMonthlyAnnuityPayment($period, $amount, $plan->percent);
         $now = Carbon::now();
         return array_fill_keys(

@@ -51,10 +51,10 @@ class DepositController extends Controller
         return Deposit::query()->findOrFail($id);
     }
 
-    public function close(Request $request)
+    public function close(int $id)
     {
         try {
-            return $this->depositService->closeDeposit($request->query('id'));
+            return $this->depositService->closeDeposit($id);
         } catch (ValidationException $e) {
             $error = $e->errors()["error"][0];
             return response()->json(['error' => $error], 422);

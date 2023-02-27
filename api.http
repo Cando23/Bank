@@ -101,10 +101,10 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Альфа сливки2",
+  "name": "Альфа сливки3",
   "percent": 18.2,
   "period_in_days": 547,
-  "revocable": 0
+  "revocable": 1
 }
 
 ###
@@ -115,7 +115,7 @@ Content-Type: application/json
 {
   "amount": 2223,
   "user_id": 7,
-  "plan_id": 4
+  "plan_id": 6
 }
 
 ###
@@ -135,7 +135,7 @@ GET http://localhost:8000/api/accounts/2
 Accept: application/json
 
 ###
-POST http://localhost:8000/api/deposits/close?id=1
+POST http://localhost:8000/api/deposits/3/close
 Accept: application/json
 
 ###
@@ -164,24 +164,37 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "name": "Cool credit49",
+  "name": "Cool credit50",
   "percent": 48,
   "min_amount": 200,
   "max_amount": 5000,
   "min_period": 12,
   "max_period": 49,
+  "annuity": 1
+}
+###
+POST http://localhost:8000/api/credits/plans
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Cool credit25",
+  "percent": 25,
+  "min_amount": 200,
+  "max_amount": 20000,
+  "min_period": 12,
+  "max_period": 49,
   "annuity": 0
 }
-
 ###
 POST http://localhost:8000/api/credits
 Accept: application/json
 Content-Type: application/json
 
 {
-  "amount": 2000,
-  "period": 48,
-  "plan_id": 5,
+  "amount": 18000,
+  "period": 36,
+  "plan_id": 6,
   "user_id": 1
 }
 
@@ -194,7 +207,7 @@ GET http://localhost:8000/api/credits/1
 Accept: application/json
 
 ###
-GET http://localhost:8000/api/credits/plan?plan_id=4&amount=2000&period=48&annuity=1
+GET http://localhost:8000/api/credits/4/payment
 Accept: application/json
 
 ###
