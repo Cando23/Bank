@@ -12,6 +12,7 @@
 ### Setup database
 - Run server
 - `docker exec -it server_app bash`
+- `composer install`
 - `php artisan migrate:fresh --seed`
 
 ### Stop server 
