@@ -1,0 +1,244 @@
+GET http://localhost:8000/api/users
+Accept: application/json
+
+###
+GET http://localhost:8000/api/cities/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/statuses/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/citizenships/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/disabilities/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/clients/1
+Accept: application/json
+
+###
+DELETE http://localhost:8000/api/clients/1
+Accept: application/json
+
+###
+
+POST http://localhost:8000/api/users
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Ivan",
+  "surname": "DUGIN",
+  "patronymic": "Petrov",
+  "date_of_birth": "2023-02-15T19:11:15Z",
+  "gender": "M",
+  "passport_series": "MP",
+  "passport_number": "1234568",
+  "passport_id_number": "1234267A123AV4",
+  "passport_issued_by": "Mingor ispolkom",
+  "passport_issue_date": "2023-02-15T19:11:15Z",
+  "place_of_birth": "Republic of belarus",
+  "personal_phone": "+375291134567",
+  "home_phone": "80291234564",
+  "residence_address": "street Hikalo 9",
+  "email": "ab123c@example.net",
+  "residence_city_id": "1",
+  "registration_city_id": "1",
+  "marital_status_id": "1",
+  "citizenship_id": "1",
+  "disability_id": "1",
+  "income": "9999",
+  "pensioner": 0
+}
+
+###
+
+PATCH http://localhost:8000/api/users/11
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Ivan",
+  "surname": "DUGIN",
+  "patronymic": "Petrov",
+  "date_of_birth": "2015-02-28",
+  "gender": "M",
+  "passport_series": "MA",
+  "passport_number": "7158542",
+  "passport_id_number": "1234267A123AV2",
+  "passport_issued_by": "Mingors ispolkoms",
+  "passport_issue_date": "2001-09-01",
+  "place_of_birth": "Republic of belarus",
+  "personal_phone": "+375291134567",
+  "home_phone": "80291234564",
+  "residence_address": "street Hikalo 9",
+  "email": "bfeeney@example.net",
+  "residence_city_id": "1",
+  "registration_city_id": "1",
+  "marital_status_id": "1",
+  "citizenship_id": "1",
+  "disability_id": "1",
+  "income": "9999",
+  "pensioner": 0
+}
+
+###
+GET http://localhost:8000/api/users/11
+Accept: application/json
+
+###
+GET http://localhost:8000/api/deposits/plans/
+Accept: application/json
+
+###
+POST http://localhost:8000/api/deposits/plans
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Альфа сливки3",
+  "percent": 18.2,
+  "period_in_days": 547,
+  "revocable": 1
+}
+
+###
+POST http://localhost:8000/api/deposits/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "amount": 2223,
+  "user_id": 7,
+  "plan_id": 6
+}
+
+###
+GET http://localhost:8000/api/deposits/
+Accept: application/json
+
+###
+GET http://localhost:8000/api/deposits/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/accounts/
+Accept: application/json
+
+###
+GET http://localhost:8000/api/accounts/2
+Accept: application/json
+
+###
+POST http://localhost:8000/api/deposits/3/close
+Accept: application/json
+
+###
+POST http://localhost:8000/api/bank/day
+Accept: application/json
+
+###
+POST http://localhost:8000/api/bank/month
+Accept: application/json
+
+###
+POST http://localhost:8000/api/bank/year
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/plans
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/plans/4
+Accept: application/json
+
+###
+POST http://localhost:8000/api/credits/plans
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Cool credit50",
+  "percent": 48,
+  "min_amount": 200,
+  "max_amount": 5000,
+  "min_period": 12,
+  "max_period": 49,
+  "annuity": 1
+}
+###
+POST http://localhost:8000/api/credits/plans
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Cool credit25",
+  "percent": 25,
+  "min_amount": 200,
+  "max_amount": 20000,
+  "min_period": 12,
+  "max_period": 49,
+  "annuity": 0
+}
+###
+POST http://localhost:8000/api/credits
+Accept: application/json
+Content-Type: application/json
+
+{
+  "amount": 18000,
+  "period": 36,
+  "plan_id": 6,
+  "user_id": 1
+}
+
+###
+GET http://localhost:8000/api/credits
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/credits/4/payment
+Accept: application/json
+
+###
+GET http://localhost:8000/api/cards/1
+Accept: application/json
+
+###
+GET http://localhost:8000/api/cards
+Accept: application/json
+
+###
+POST http://localhost:8000/api/atm
+Accept: application/json
+Content-Type: application/json
+
+{
+  "number" : "3343469911503841",
+  "pin": "5391"
+}
+
+###
+GET http://localhost:8000/api/atm/1
+Accept: application/json
+
+###
+POST http://localhost:8000/api/atm/withdraw
+Accept: application/json
+Content-Type: application/json
+
+{
+  "number" : "3343469911503841",
+  "pin": "5392",
+  "amount": 1000
+}
